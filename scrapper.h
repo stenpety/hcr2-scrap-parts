@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "part.h"
+
 class Scrapper : public QWidget {
     Q_OBJECT
 
@@ -12,6 +14,9 @@ public:
 signals:
 
 public slots:
+
+private:
+    Part *part;
 };
 
 #endif // SCRAPPER_H

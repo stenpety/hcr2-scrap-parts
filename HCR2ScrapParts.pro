@@ -26,8 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    scrapper.cpp
+    scrapper.cpp \
+    part.cpp
 
 HEADERS += \
         mainwindow.h \
-    scrapper.h
+    scrapper.h \
+    part.h
