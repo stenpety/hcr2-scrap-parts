@@ -2,6 +2,8 @@
 #define SCRAPPER_H
 
 #include <QWidget>
+#include <QtWidgets>
+#include <QDataWidgetMapper>
 
 #include "part.h"
 
@@ -17,6 +19,9 @@ public slots:
 
 private:
     Part *part;
+
+    QComboBox *typeComboBox;
+    QDataWidgetMapper *mapper;
 };
 
 #endif // SCRAPPER_H

@@ -1,8 +1,9 @@
-#include <QtWidgets>
-
 #include "scrapper.h"
 
 Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
+
+    part = new Part;
+
     QLabel *nextUpLabel = new QLabel(tr("Parts required for NEXT upgrade:"));
 
 
@@ -15,11 +16,13 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     lblsBox->addWidget(scrapLabel);
     lblsBox->addWidget(numOfParts);
 
-    auto *typeComboBox = new QComboBox;
-    typeComboBox->addItem(tr("Normal"));
-    typeComboBox->addItem(tr("Rare"));
-    typeComboBox->addItem(tr("Epic"));
-    typeComboBox->addItem(tr("Legend"));
+    typeComboBox = new QComboBox();
+    typeComboBox->setModel(part->getTypeModel());
+    connect(typeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), part, &Part::setPartType);
+
+    mapper = new QDataWidgetMapper(this);
+    mapper->setModel(part->getModel());
+
 
     auto *mainLayout = new QGridLayout;
     mainLayout->addWidget(nextUpLabel, 0, 0, Qt::AlignCenter);
@@ -28,6 +31,4 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     mainLayout->addWidget(typeComboBox, 1, 1, Qt::AlignCenter);
 
     setLayout(mainLayout);
-
-    part = new Part;
 }

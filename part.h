@@ -2,8 +2,11 @@
 #define PART_H
 
 #include <QObject>
+#include <QStandardItemModel>
+#include <QStringListModel>
+#include <iostream>
 
-enum PartType {normal, rare, epic, legend};
+enum PartType {common, rare, epic, legend};
 
 class Part : public QObject {
 
@@ -11,13 +14,21 @@ class Part : public QObject {
 
 public:
     explicit Part(QObject *parent = nullptr);
+    QStandardItemModel *getModel();
+    QStringListModel *getTypeModel();
 
 public slots:
-    void setPartType(PartType const partType);
+    void setPartType(const int index);
 
 private:
-    PartType partType;
+    void setupModel();
 
+    PartType partType;
+    int minLevel;
+    int maxLevel;
+
+    QStandardItemModel *model;
+    QStringListModel *typeModel;
 };
 
 #endif // PART_H
