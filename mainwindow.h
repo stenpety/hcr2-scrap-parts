@@ -12,9 +12,16 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private:
+private slots:
+    void openSettings();
 
+private:
     Scrapper *scrapper;
+
+    QMenu *partsMenu;
+    QAction *settingsAct;
+
+    void createMenus();
 };
 
 #endif // MAINWINDOW_H
