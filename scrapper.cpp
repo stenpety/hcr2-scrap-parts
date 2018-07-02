@@ -54,7 +54,10 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
 
     // Scrap - total
     QLabel *scrapLabel = new QLabel(tr("Total parts needed:"));
-    numOfParts = new QLabel("0");
+    numOfParts = new QLabel(QString::number(part->getTotalPartsNeeded()));
+    connect(part, &Part::totalPartsNeededValueChanged,
+            [=](){ numOfParts->setText(QString::number(part->getTotalPartsNeeded())); } );
+
 
 
     auto *lblsBox = new QHBoxLayout;

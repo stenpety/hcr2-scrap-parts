@@ -1,14 +1,17 @@
 #include "part.h"
 
 Part::Part(QObject *parent) : QObject(parent) {
+
+    partsAtLevel = {3, 10, 17, 25, 34, 45, 58, 76, 100, 140, 200, 280, 410, 620};
+
     setupModel();
     partType = common;
     minLevel = 4;
     maxLevel = 13;
     currentLevel = minLevel;
     desiredMaxLevel = maxLevel;
+    calcTotalParts();
 
-    partsAtLevel = {3, 10, 17, 25, 34, 45, 58, 76, 100, 140, 200, 280, 410, 620};
 }
 
 void Part::setPartType(const int index) {
@@ -43,12 +46,14 @@ void Part::setPartType(const int index) {
         emit maxLevelValueChanged(maxLevel);
         emit currentLevelValueChanged(currentLevel);
         emit desiredMaxLevelValueChanged(desiredMaxLevel);
+        calcTotalParts();
     }
 }
 
 void Part::setCurrentLevel(const int level) {
     if (currentLevel != level) {
         currentLevel = level;
+        calcTotalParts();
         emit currentLevelValueChanged(currentLevel);
     }
 
@@ -57,6 +62,7 @@ void Part::setCurrentLevel(const int level) {
 void Part::setDesiredMaxLevel(const int level) {
     if (desiredMaxLevel != level) {
         desiredMaxLevel = level;
+        calcTotalParts();
         emit desiredMaxLevelValueChanged(desiredMaxLevel);
     }
 }
@@ -95,4 +101,20 @@ int Part::getDesiredMaxLevel() {
 
 int Part::getPartsForLevel(const int level) {
     return partsAtLevel[level];
+}
+
+int Part::getTotalPartsNeeded() {
+    return totalPartsNeeded;
+}
+
+void Part::calcTotalParts() {
+    int oldTotalPartsNeeded = totalPartsNeeded;
+    totalPartsNeeded = 0;
+    int i;
+    for (i = currentLevel; i <= desiredMaxLevel; ++i) {
+        totalPartsNeeded += partsAtLevel[i];
+    }
+    if (totalPartsNeeded != oldTotalPartsNeeded) {
+        emit totalPartsNeededValueChanged(totalPartsNeeded);
+    }
 }
