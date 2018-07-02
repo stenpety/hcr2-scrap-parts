@@ -3,8 +3,8 @@
 Part::Part(QObject *parent) : QObject(parent) {
     setupModel();
     partType = common;
-    minLevel = 5;
-    maxLevel = 14;
+    minLevel = 4;
+    maxLevel = 13;
     currentLevel = minLevel;
     desiredMaxLevel = maxLevel;
 
@@ -16,23 +16,23 @@ void Part::setPartType(const int index) {
         switch (index) {
         case 0:
             partType = common;
-            minLevel = 5;
-            maxLevel = 14;
+            minLevel = 4;
+            maxLevel = 13;
             break;
         case 1:
             partType = rare;
-            minLevel = 3;
-            maxLevel = 9;
+            minLevel = 2;
+            maxLevel = 8;
             break;
         case 2:
             partType = epic;
-            minLevel = 1;
-            maxLevel = 6;
+            minLevel = 0;
+            maxLevel = 5;
             break;
         case 3:
             partType = legend;
-            minLevel = 1;
-            maxLevel = 3;
+            minLevel = 0;
+            maxLevel = 2;
             break;
         default:
             break;

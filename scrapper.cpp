@@ -21,7 +21,8 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     connect(requiredSlider, &QSlider::valueChanged, part, &Part::setCurrentLevel);
 
     requiredNumberLabel = new QLabel(QString::number(part->getPartsForLevel(part->getCurrentLevel())));
-    connect(part, &Part::currentLevelValueChanged, [=](){  });
+    connect(part, &Part::currentLevelValueChanged,
+            [=](){ requiredNumberLabel->setText(QString::number(part->getPartsForLevel(part->getCurrentLevel()))); });
 
     auto *requiredBox = new QHBoxLayout;
     requiredBox->addWidget(requiredSlider);
@@ -43,14 +44,16 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     connect(part, &Part::desiredMaxLevelValueChanged, desiredMaxSlider, &QSlider::setValue);
     connect(desiredMaxSlider, &QSlider::valueChanged, part, &Part::setDesiredMaxLevel);
 
-    desiredMaxNumberLabel = new QLabel(tr("0"));
+    desiredMaxNumberLabel = new QLabel(QString::number(part->getDesiredMaxLevel()+2));
+    connect(part, &Part::desiredMaxLevelValueChanged,
+            [=](){ desiredMaxNumberLabel->setText(QString::number(part->getDesiredMaxLevel()+2)); } );
 
     auto desiredMaxBox = new QHBoxLayout;
     desiredMaxBox->addWidget(desiredMaxSlider);
     desiredMaxBox->addWidget(desiredMaxNumberLabel);
 
     // Scrap - total
-    QLabel *scrapLabel = new QLabel(tr("Parts to scrap:"));
+    QLabel *scrapLabel = new QLabel(tr("Total parts needed:"));
     numOfParts = new QLabel("0");
 
 
