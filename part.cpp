@@ -6,6 +6,8 @@ Part::Part(QObject *parent) : QObject(parent) {
     minLevel = 5;
     maxLevel = 14;
     currentLevel = minLevel;
+
+    partsAtLevel = {0, 3, 10, 17, 25, 34, 45, 58, 76, 100, 140, 200, 280, 410, 620};
 }
 
 void Part::setPartType(const int index) {
@@ -79,4 +81,8 @@ int Part::getMaxLevel(){
 
 int Part::getCurrentLevel() {
     return currentLevel;
+}
+
+int Part::getPartsForLevel(const int level) {
+    return partsAtLevel[level];
 }

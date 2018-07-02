@@ -20,6 +20,8 @@ public:
     int getMaxLevel();
     int getCurrentLevel();
 
+    int getPartsForLevel(const int);
+
 signals:
     void minLevelValueChanged(int newValue);
     void maxLevelValueChanged(int newValue);
@@ -38,6 +40,8 @@ private:
 
     int requiredParts;
     int desiredMaxLevel;
+
+    QVector<int> partsAtLevel;
 
     QStandardItemModel *model;
     QStringListModel *typeModel;

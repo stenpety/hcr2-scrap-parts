@@ -25,6 +25,10 @@ private:
 
     QComboBox *typeComboBox;
     QDataWidgetMapper *mapper;
+
+    QLabel *numOfParts;
+    QLabel *requiredNumberLabel;
+    QLabel *desiredMaxNumberLabel;
 };
 
 #endif // SCRAPPER_H
