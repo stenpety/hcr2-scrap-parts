@@ -6,8 +6,9 @@ Part::Part(QObject *parent) : QObject(parent) {
     minLevel = 5;
     maxLevel = 14;
     currentLevel = minLevel;
+    desiredMaxLevel = maxLevel;
 
-    partsAtLevel = {0, 3, 10, 17, 25, 34, 45, 58, 76, 100, 140, 200, 280, 410, 620};
+    partsAtLevel = {3, 10, 17, 25, 34, 45, 58, 76, 100, 140, 200, 280, 410, 620};
 }
 
 void Part::setPartType(const int index) {
@@ -37,12 +38,28 @@ void Part::setPartType(const int index) {
             break;
         }
         currentLevel = minLevel;
+        desiredMaxLevel = maxLevel;
         emit minLevelValueChanged(minLevel);
         emit maxLevelValueChanged(maxLevel);
         emit currentLevelValueChanged(currentLevel);
+        emit desiredMaxLevelValueChanged(desiredMaxLevel);
     }
 }
 
+void Part::setCurrentLevel(const int level) {
+    if (currentLevel != level) {
+        currentLevel = level;
+        emit currentLevelValueChanged(currentLevel);
+    }
+
+}
+
+void Part::setDesiredMaxLevel(const int level) {
+    if (desiredMaxLevel != level) {
+        desiredMaxLevel = level;
+        emit desiredMaxLevelValueChanged(desiredMaxLevel);
+    }
+}
 
 void Part::setupModel() {
     QStringList types;
@@ -50,17 +67,6 @@ void Part::setupModel() {
     typeModel = new QStringListModel(types, this);
 
     model = new QStandardItemModel(4, 2, this);
-    /*
-    model->setItem(0, 0, "5");
-    model->setItem(0, 1, "14");
-    model->setItem(1, 0, "3");
-    model->setItem(1, 1, "9");
-    model->setItem(2, 0, "1");
-    model->setItem(2, 1, "6");
-    model->setItem(3, 0, "1");
-    model->setItem(3, 1, "3");
-    */
-
 }
 
 QStandardItemModel *Part::getModel() {
@@ -81,6 +87,10 @@ int Part::getMaxLevel(){
 
 int Part::getCurrentLevel() {
     return currentLevel;
+}
+
+int Part::getDesiredMaxLevel() {
+    return desiredMaxLevel;
 }
 
 int Part::getPartsForLevel(const int level) {

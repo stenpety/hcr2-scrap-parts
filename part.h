@@ -19,6 +19,7 @@ public:
     int getMinLevel();
     int getMaxLevel();
     int getCurrentLevel();
+    int getDesiredMaxLevel();
 
     int getPartsForLevel(const int);
 
@@ -26,9 +27,12 @@ signals:
     void minLevelValueChanged(int newValue);
     void maxLevelValueChanged(int newValue);
     void currentLevelValueChanged(int newValue);
+    void desiredMaxLevelValueChanged(int newValue);
 
 public slots:
     void setPartType(const int index);
+    void setCurrentLevel(const int level);
+    void setDesiredMaxLevel(const int level);
 
 private:
     void setupModel();
@@ -37,8 +41,6 @@ private:
     int minLevel;
     int maxLevel;
     int currentLevel;
-
-    int requiredParts;
     int desiredMaxLevel;
 
     QVector<int> partsAtLevel;

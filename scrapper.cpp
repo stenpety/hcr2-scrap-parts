@@ -18,8 +18,10 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     connect(part, &Part::minLevelValueChanged, requiredSlider, &QSlider::setMinimum);
     connect(part, &Part::maxLevelValueChanged, requiredSlider, &QSlider::setMaximum);
     connect(part, &Part::currentLevelValueChanged, requiredSlider, &QSlider::setValue);
+    connect(requiredSlider, &QSlider::valueChanged, part, &Part::setCurrentLevel);
 
-    requiredNumberLabel = new QLabel(tr("0"));
+    requiredNumberLabel = new QLabel(QString::number(part->getPartsForLevel(part->getCurrentLevel())));
+    connect(part, &Part::currentLevelValueChanged, [=](){  });
 
     auto *requiredBox = new QHBoxLayout;
     requiredBox->addWidget(requiredSlider);
@@ -33,12 +35,13 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     desiredMaxSlider->setTickPosition(QSlider::TicksBothSides);
     desiredMaxSlider->setMinimum(part->getMinLevel());
     desiredMaxSlider->setMaximum(part->getMaxLevel());
-    desiredMaxSlider->setValue(part->getCurrentLevel());
+    desiredMaxSlider->setValue(part->getDesiredMaxLevel());
     desiredMaxSlider->setTickInterval(1);
     desiredMaxSlider->setSingleStep(1);
     connect(part, &Part::minLevelValueChanged, desiredMaxSlider, &QSlider::setMinimum);
     connect(part, &Part::maxLevelValueChanged, desiredMaxSlider, &QSlider::setMaximum);
-    connect(part, &Part::currentLevelValueChanged, desiredMaxSlider, &QSlider::setValue);
+    connect(part, &Part::desiredMaxLevelValueChanged, desiredMaxSlider, &QSlider::setValue);
+    connect(desiredMaxSlider, &QSlider::valueChanged, part, &Part::setDesiredMaxLevel);
 
     desiredMaxNumberLabel = new QLabel(tr("0"));
 
