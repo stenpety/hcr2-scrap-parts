@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QStandardItemModel>
 #include <QStringListModel>
-#include <iostream>
 
 enum PartType {common, rare, epic, legend};
 
@@ -19,10 +18,12 @@ public:
 
     int getMinLevel();
     int getMaxLevel();
+    int getCurrentLevel();
 
 signals:
     void minLevelValueChanged(int newValue);
     void maxLevelValueChanged(int newValue);
+    void currentLevelValueChanged(int newValue);
 
 public slots:
     void setPartType(const int index);
@@ -33,6 +34,7 @@ private:
     PartType partType;
     int minLevel;
     int maxLevel;
+    int currentLevel;
 
     int requiredParts;
     int desiredMaxLevel;

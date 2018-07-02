@@ -10,10 +10,12 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     requiredSlider->setTickPosition(QSlider::TicksBothSides);
     requiredSlider->setMinimum(part->getMinLevel());
     requiredSlider->setMaximum(part->getMaxLevel());
+    requiredSlider->setValue(part->getCurrentLevel());
     requiredSlider->setTickInterval(1);
     requiredSlider->setSingleStep(1);
     connect(part, &Part::minLevelValueChanged, requiredSlider, &QSlider::setMinimum);
     connect(part, &Part::maxLevelValueChanged, requiredSlider, &QSlider::setMaximum);
+    connect(part, &Part::currentLevelValueChanged, requiredSlider, &QSlider::setValue);
 
     QLabel *desiredLabel = new QLabel(tr("Desired max upgrade level:"));
     desiredMaxSlider = new QSlider(Qt::Horizontal);
@@ -21,10 +23,12 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     desiredMaxSlider->setTickPosition(QSlider::TicksBothSides);
     desiredMaxSlider->setMinimum(part->getMinLevel());
     desiredMaxSlider->setMaximum(part->getMaxLevel());
+    desiredMaxSlider->setValue(part->getCurrentLevel());
     desiredMaxSlider->setTickInterval(1);
     desiredMaxSlider->setSingleStep(1);
     connect(part, &Part::minLevelValueChanged, desiredMaxSlider, &QSlider::setMinimum);
     connect(part, &Part::maxLevelValueChanged, desiredMaxSlider, &QSlider::setMaximum);
+    connect(part, &Part::currentLevelValueChanged, desiredMaxSlider, &QSlider::setValue);
 
     QLabel *scrapLabel = new QLabel(tr("Parts to scrap:"));
     QLabel *numOfParts = new QLabel("0");

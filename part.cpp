@@ -5,6 +5,7 @@ Part::Part(QObject *parent) : QObject(parent) {
     partType = common;
     minLevel = 5;
     maxLevel = 14;
+    currentLevel = minLevel;
 }
 
 void Part::setPartType(const int index) {
@@ -33,11 +34,11 @@ void Part::setPartType(const int index) {
         default:
             break;
         }
+        currentLevel = minLevel;
         emit minLevelValueChanged(minLevel);
         emit maxLevelValueChanged(maxLevel);
+        emit currentLevelValueChanged(currentLevel);
     }
-
-    std::cout << "My min is " << minLevel << "; max is " << maxLevel << std::endl;
 }
 
 
@@ -76,4 +77,6 @@ int Part::getMaxLevel(){
     return maxLevel;
 }
 
-
+int Part::getCurrentLevel() {
+    return currentLevel;
+}
