@@ -20,6 +20,9 @@ public slots:
 private:
     Part *part;
 
+    QSlider *requiredSlider;
+    QSlider *desiredMaxSlider;
+
     QComboBox *typeComboBox;
     QDataWidgetMapper *mapper;
 };
