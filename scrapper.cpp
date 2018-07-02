@@ -4,18 +4,22 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
 
     part = new Part;
 
-    QLabel *nextUpLabel = new QLabel(tr("Parts required for NEXT upgrade:"));
+    QLabel *requiredLabel = new QLabel(tr("Parts required for NEXT upgrade:"));
     requiredSlider = new QSlider(Qt::Horizontal);
     requiredSlider->setFocusPolicy(Qt::StrongFocus);
     requiredSlider->setTickPosition(QSlider::TicksBothSides);
-    requiredSlider->setTickInterval(10);
+    requiredSlider->setMinimum(part->getMinLevel());
+    requiredSlider->setMaximum(part->getMaxLevel());
+    requiredSlider->setTickInterval(1);
     requiredSlider->setSingleStep(1);
 
     QLabel *desiredLabel = new QLabel(tr("Desired max upgrade level:"));
     desiredMaxSlider = new QSlider(Qt::Horizontal);
     desiredMaxSlider->setFocusPolicy(Qt::StrongFocus);
     desiredMaxSlider->setTickPosition(QSlider::TicksBothSides);
-    desiredMaxSlider->setTickInterval(5);
+    desiredMaxSlider->setMinimum(part->getMinLevel());
+    desiredMaxSlider->setMaximum(part->getMaxLevel());
+    desiredMaxSlider->setTickInterval(1);
     desiredMaxSlider->setSingleStep(1);
 
     QLabel *scrapLabel = new QLabel(tr("Parts to scrap:"));
@@ -34,7 +38,7 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
 
 
     auto *mainLayout = new QGridLayout;
-    mainLayout->addWidget(nextUpLabel, 0, 0, Qt::AlignCenter);
+    mainLayout->addWidget(requiredLabel, 0, 0, Qt::AlignCenter);
     mainLayout->addWidget(requiredSlider, 1, 0, Qt::AlignCenter);
     mainLayout->addWidget(desiredLabel, 2, 0, Qt::AlignCenter);
     mainLayout->addWidget(desiredMaxSlider, 3, 0, Qt::AlignCenter);

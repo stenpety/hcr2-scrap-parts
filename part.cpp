@@ -62,3 +62,13 @@ QStandardItemModel *Part::getModel() {
 QStringListModel *Part::getTypeModel() {
     return typeModel;
 }
+
+int Part::getMinLevel() {
+    return minLevel;
+}
+
+int Part::getMaxLevel(){
+    return maxLevel;
+}
+
+

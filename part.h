@@ -17,6 +17,9 @@ public:
     QStandardItemModel *getModel();
     QStringListModel *getTypeModel();
 
+    int getMinLevel();
+    int getMaxLevel();
+
 public slots:
     void setPartType(const int index);
 
@@ -26,6 +29,9 @@ private:
     PartType partType;
     int minLevel;
     int maxLevel;
+
+    int requiredParts;
+    int desiredMaxLevel;
 
     QStandardItemModel *model;
     QStringListModel *typeModel;
