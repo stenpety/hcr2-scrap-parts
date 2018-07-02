@@ -20,6 +20,10 @@ public:
     int getMinLevel();
     int getMaxLevel();
 
+signals:
+    void minLevelValueChanged(int newValue);
+    void maxLevelValueChanged(int newValue);
+
 public slots:
     void setPartType(const int index);
 

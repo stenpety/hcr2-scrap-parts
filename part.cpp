@@ -8,30 +8,35 @@ Part::Part(QObject *parent) : QObject(parent) {
 }
 
 void Part::setPartType(const int index) {
-    switch (index) {
-    case 0:
-        partType = common;
-        minLevel = 5;
-        maxLevel = 14;
-        break;
-    case 1:
-        partType = rare;
-        minLevel = 3;
-        maxLevel = 9;
-        break;
-    case 2:
-        partType = epic;
-        minLevel = 1;
-        maxLevel = 6;
-        break;
-    case 3:
-        partType = legend;
-        minLevel = 1;
-        maxLevel = 3;
-        break;
-    default:
-        break;
+    if (index != partType) {
+        switch (index) {
+        case 0:
+            partType = common;
+            minLevel = 5;
+            maxLevel = 14;
+            break;
+        case 1:
+            partType = rare;
+            minLevel = 3;
+            maxLevel = 9;
+            break;
+        case 2:
+            partType = epic;
+            minLevel = 1;
+            maxLevel = 6;
+            break;
+        case 3:
+            partType = legend;
+            minLevel = 1;
+            maxLevel = 3;
+            break;
+        default:
+            break;
+        }
+        emit minLevelValueChanged(minLevel);
+        emit maxLevelValueChanged(maxLevel);
     }
+
     std::cout << "My min is " << minLevel << "; max is " << maxLevel << std::endl;
 }
 
