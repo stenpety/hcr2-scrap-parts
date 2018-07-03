@@ -10,7 +10,9 @@ Part::Part(QObject *parent) : QObject(parent) {
     maxLevel = 13;
     currentLevel = minLevel;
     desiredMaxLevel = maxLevel;
+    partsHave = 0;
     calcTotalParts();
+    calcSafeToScrap();
 
 }
 
@@ -67,6 +69,13 @@ void Part::setDesiredMaxLevel(const int level) {
     }
 }
 
+void Part::setPartsHaveFromString(const QString ps) {
+    if (ps.toInt()) {
+        partsHave = ps.toInt();
+        calcSafeToScrap();
+    }
+}
+
 void Part::setupModel() {
     QStringList types;
     types << tr("Common") << tr("Rare") << tr("Epic") << tr("Legend");
@@ -107,6 +116,10 @@ int Part::getTotalPartsNeeded() {
     return totalPartsNeeded;
 }
 
+int Part::getSafeToScrap() {
+    return safeToScrap;
+}
+
 void Part::calcTotalParts() {
     int oldTotalPartsNeeded = totalPartsNeeded;
     totalPartsNeeded = 0;
@@ -116,5 +129,14 @@ void Part::calcTotalParts() {
     }
     if (totalPartsNeeded != oldTotalPartsNeeded) {
         emit totalPartsNeededValueChanged(totalPartsNeeded);
+    }
+    calcSafeToScrap();
+}
+
+void Part::calcSafeToScrap() {
+    int oldSafeToScrap = safeToScrap;
+    safeToScrap = partsHave - totalPartsNeeded > 0 ? partsHave - totalPartsNeeded : 0;
+    if (safeToScrap != oldSafeToScrap) {
+        emit safeToScrapValueChanged(safeToScrap);
     }
 }

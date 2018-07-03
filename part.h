@@ -21,6 +21,7 @@ public:
     int getCurrentLevel();
     int getDesiredMaxLevel();
     int getTotalPartsNeeded();
+    int getSafeToScrap();
 
     int getPartsForLevel(const int);
 
@@ -30,22 +31,29 @@ signals:
     void currentLevelValueChanged(int newValue);
     void desiredMaxLevelValueChanged(int newValue);
     void totalPartsNeededValueChanged(int newValue);
+    void safeToScrapValueChanged(int newValue);
 
 public slots:
     void setPartType(const int index);
     void setCurrentLevel(const int level);
     void setDesiredMaxLevel(const int level);
+    void setPartsHaveFromString(const QString ps);
 
 private:
     void setupModel();
     void calcTotalParts();
+    void calcSafeToScrap();
 
     PartType partType;
     int minLevel;
     int maxLevel;
+
     int currentLevel;
     int desiredMaxLevel;
     int totalPartsNeeded;
+
+    int partsHave;
+    int safeToScrap;
 
     QVector<int> partsAtLevel;
 

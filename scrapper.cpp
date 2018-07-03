@@ -62,6 +62,7 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     QLabel *partsHaveLabel = new QLabel(tr("Parts have: "));
     partsHave = new QLineEdit;
     partsHave->setAlignment(Qt::AlignHCenter);
+    connect(partsHave, &QLineEdit::textChanged, part, &Part::setPartsHaveFromString);
     auto *haveBox = new QHBoxLayout;
     haveBox->addWidget(partsHaveLabel);
     haveBox->addWidget(partsHave);
@@ -69,6 +70,8 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     // Safe to scrap
     QLabel *safeToScrapLabel = new QLabel(tr("Safe to scrap: "));
     safeToScrap = new QLabel("");
+    connect(part, &Part::safeToScrapValueChanged,
+            [=](){ safeToScrap->setText(QString::number(part->getSafeToScrap())); } );
     auto *scrapBox = new QHBoxLayout;
     scrapBox->addWidget(safeToScrapLabel);
     scrapBox->addWidget(safeToScrap);
