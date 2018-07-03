@@ -33,3 +33,5 @@ HEADERS += \
         mainwindow.h \
     scrapper.h \
     part.h
+
+ICON = scrp.icns
