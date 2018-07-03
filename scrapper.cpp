@@ -52,13 +52,26 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     desiredMaxBox->addWidget(desiredMaxSlider);
     desiredMaxBox->addWidget(desiredMaxNumberLabel);
 
-    // Scrap - total
+    // Needed parts - total
     QLabel *scrapLabel = new QLabel(tr("Total parts needed:"));
     numOfParts = new QLabel(QString::number(part->getTotalPartsNeeded()));
     connect(part, &Part::totalPartsNeededValueChanged,
             [=](){ numOfParts->setText(QString::number(part->getTotalPartsNeeded())); } );
 
+    // Has parts
+    QLabel *partsHaveLabel = new QLabel(tr("Parts have: "));
+    partsHave = new QLineEdit;
+    partsHave->setAlignment(Qt::AlignHCenter);
+    auto *haveBox = new QHBoxLayout;
+    haveBox->addWidget(partsHaveLabel);
+    haveBox->addWidget(partsHave);
 
+    // Safe to scrap
+    QLabel *safeToScrapLabel = new QLabel(tr("Safe to scrap: "));
+    safeToScrap = new QLabel("");
+    auto *scrapBox = new QHBoxLayout;
+    scrapBox->addWidget(safeToScrapLabel);
+    scrapBox->addWidget(safeToScrap);
 
     auto *lblsBox = new QHBoxLayout;
     lblsBox->addWidget(scrapLabel);
@@ -79,6 +92,8 @@ Scrapper::Scrapper(QWidget *parent) : QWidget(parent) {
     mainLayout->addLayout(desiredMaxBox, 3, 0, Qt::AlignCenter);
     mainLayout->addLayout(lblsBox, 4, 0, Qt::AlignCenter);
     mainLayout->addWidget(typeComboBox, 1, 1, Qt::AlignCenter);
+    mainLayout->addLayout(haveBox, 5, 0, Qt::AlignCenter);
+    mainLayout->addLayout(scrapBox, 6, 0, Qt::AlignHCenter);
 
     setLayout(mainLayout);
 }

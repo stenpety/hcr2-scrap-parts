@@ -29,6 +29,9 @@ private:
     QLabel *numOfParts;
     QLabel *requiredNumberLabel;
     QLabel *desiredMaxNumberLabel;
+    QLabel *safeToScrap;
+
+    QLineEdit *partsHave;
 };
 
 #endif // SCRAPPER_H
